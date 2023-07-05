@@ -1,7 +1,17 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { PageLayOut } from "./layouts/PageLayOut";
+import HomePage from "./pages/homePage/HomePage";
+
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      We can think it, We can do it!
-    </h1>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PageLayOut />}>
+          <Route index element={<HomePage />} />
+          </Route>
+      </Routes>
+      </BrowserRouter>
+    </>
   );
 }
