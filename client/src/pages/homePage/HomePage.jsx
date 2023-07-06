@@ -1,7 +1,7 @@
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="bg[red]">
       HomePage
     </div>
   )
