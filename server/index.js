@@ -28,6 +28,9 @@ app.use(express.json());
 //middleware for cookies
 app.use(cookieParser());
 
+// server routes
+app.use( "/products", require("./routes/products"))
+
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB.");
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
