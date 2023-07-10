@@ -26,4 +26,8 @@ const UserSchema =  new Schema ({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cart",
     }],
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+    }]
 })

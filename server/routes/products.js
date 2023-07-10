@@ -6,7 +6,7 @@ const {purchaseProduct} = require("../controllers/productController");
 
 function productControllerRouting() {
   const router = express.Router();
-  application.use('/', router);
+  app.use('/', router);
 
   router.get("/", (req, res) => {
     getAllProducts(req, res);
