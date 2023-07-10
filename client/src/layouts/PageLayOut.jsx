@@ -6,7 +6,7 @@ export const PageLayOut = () => {
   return (
 <>
       <PageNavigations />
-      <Outlet/>
+      <Outlet />
 </>
       
   )
