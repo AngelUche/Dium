@@ -1,14 +1,8 @@
-import { Footer } from "../footer/Footer"
+
 export const MainProdut = () => {
   return (
-    <div>
-      <section>
-
-      Porduct
-      </section>
-      <section>
-        <Footer/>
-      </section>
+       <div className='shoppage'>
+         <h1>main product</h1>
     </div>
   )
 }
