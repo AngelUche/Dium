@@ -25,6 +25,13 @@ const registerUser = async (req, res) => {
             address,
             password: hashedPassword,
         });
+        // adding the jwt token
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "30d",
+    });
+
+    //adding the token to the header
+        res.setHeader('Authorization','Bearer' + token)
         res.send({ message: "User registered successfully!" });
         console.log(newUser);
     }
@@ -33,10 +40,7 @@ const registerUser = async (req, res) => {
         console.log(error);
     }
 
-    // adding the jwt token
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "30d",
-    });
+    
 };
 
 // exporting the functions
