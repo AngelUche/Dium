@@ -1,0 +1,13 @@
+.collection-preview {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-size: 28px;
+  }
+
+  .preview {
+    display: flex;
+    justify-content: space-between;
+  }
+}

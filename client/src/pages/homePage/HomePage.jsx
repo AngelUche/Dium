@@ -1,8 +1,11 @@
-
+import { Directory } from "../../components/DIrectoryEntryPoint/directory/Directory"
+import { Footer } from "../../components/footer/Footer"
 const HomePage = () => {
   return (
-    <div className="bg[red]">
-      HomePage
+   <div className="homepage ">
+      <Directory />
+      <Footer/>
+      
     </div>
   )
 }
