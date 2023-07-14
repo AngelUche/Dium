@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const CartItems = require("./CartItem");
+const Crders = require("./Orders");
 
 const UserSchema = new Schema({
   username: {
@@ -10,16 +12,16 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  cartItems: [
+  cart: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Product",
+      ref: "Cart",
     },
   ],
-  purchasedProducts: [
+  orders: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Product",
+      ref: "Orders",
     },
   ],
   suspended: Boolean,

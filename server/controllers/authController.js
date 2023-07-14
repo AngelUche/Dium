@@ -21,7 +21,7 @@ const handleLogin = async (req, res) => {
     const accessToken = jwt.sign(
       {
         UserInfo: {
-          _id: foundUser._id,
+          id: foundUser._id,
           username: foundUser.username,
         },
       },
@@ -42,10 +42,9 @@ const handleLogin = async (req, res) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
-      //   secure: true,
       maxAge: 24 * 60 * 60 * 1000,
     });
-    res.json({ ...result, accessToken });
+    res.json({result, accessToken });
   } else {
     res.sendStatus(401);
   }

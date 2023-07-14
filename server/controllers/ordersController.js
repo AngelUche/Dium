@@ -3,33 +3,36 @@ const Orders = require("../models/Orders");
 const Cart = require("../models/CartItem");
 
 const getOrders = async (req, res) => {
+    const user = req.user;
+    if (!user) {
+        return res.status(401).json({ message: "You are not logged in" });
+    }
     try {
-        const username = req.user;
-        if (!username) {
-            res.status(401).json({ message: "You are not logged in" });
-            return;
-        }
         // find the user and populate the orders
-        const user = await User.findOne(username).populate("orders");
+        const newuser = await User.findById(user.id);
+        console.log(newuser);
         // gets the orders related to the current user
-        const orders = user.orders;
+        const orders = newuser.orders;
+        console.log(orders);
         res.json(orders);
     } catch (error) {
-        res.status(400).json({ message: "An error occurred. Please try again later" });
+        res.status(401).json({ message: "An error occurred. Please try again later" });
         console.log(error);
     }
 }
 const addOrder = async (req, res) => {
-    username= req.user;
-    const user = User.findOne(username).exec()
-    const cart = await Cart.findOne({ user: user.id }).populate('products');
-    const products = cart.products;
+    const user = req.user;
+    if (!user) {
+        return res.status(401).json({ message: "You are not logged in" });
+    }
+    const cart = await Cart.findById(user.id).populate('products');
+    const products = cart.product;
 
     try {
         result = new Orders({
             user: user.id,
             products: products.map(product => product._id),
-            totalPrice:10,//total price of all products in cart
+            totalPrice:10,//total price of all products in cart pls write the code
         })
     } catch(err){
         console.log(err);
@@ -38,10 +41,10 @@ const addOrder = async (req, res) => {
 }
 const updateOrder = async (req, res) => {
     try {
-        const username = req.user;
-        const user = await User.findOne(username).exec()
+        const user = req.user;
+        const foundUser = await User.findOne(user.username).exec()
         const { status } = req.body;
-        const order = await Orders.findById(user.id);
+        const order = await Orders.findById(foundUser.id);
         if (!order) {
             res.status(404).json({ message: "Order not found" });
             return;
@@ -55,5 +58,16 @@ const updateOrder = async (req, res) => {
     }
 }
 
+const getAllOrders = async (req, res) => {
+    try {
+        const orders = await Orders.find();
+        console.log(orders)
+        res.json(orders);
+    } catch (error) {
+        res.status(400).json({ message: "An error occurred. Please try again later" });
+        console.log(error);
+    }
+}
 
-module.exports = { getOrders, addOrder };
+
+module.exports = { getOrders, addOrder, updateOrder, getAllOrders };
