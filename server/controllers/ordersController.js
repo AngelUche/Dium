@@ -2,6 +2,8 @@ const User = require("../models/User");
 const Orders = require("../models/Orders");
 const Cart = require("../models/CartItem");
 
+
+// tested
 const getOrders = async (req, res) => {
     const user = req.user;
     if (!user) {
@@ -20,6 +22,8 @@ const getOrders = async (req, res) => {
         console.log(error);
     }
 }
+
+//untested
 const addOrder = async (req, res) => {
     const user = req.user;
     if (!user) {
@@ -39,10 +43,12 @@ const addOrder = async (req, res) => {
         res.status(400).json({ message: "An error occurred. Please try again later" });
     }
 }
+
+//untested
 const updateOrder = async (req, res) => {
     try {
         const user = req.user;
-        const foundUser = await User.findOne(user.username).exec()
+        const foundUser = await User.findOne({username:user.username}).exec()
         const { status } = req.body;
         const order = await Orders.findById(foundUser.id);
         if (!order) {
@@ -58,6 +64,7 @@ const updateOrder = async (req, res) => {
     }
 }
 
+//tested
 const getAllOrders = async (req, res) => {
     try {
         const orders = await Orders.find();

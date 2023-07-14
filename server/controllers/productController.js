@@ -14,9 +14,9 @@ const getAllProducts = async (req, res) => {
 };
 
 const addProduct = async (req, res) => {
-  // Get the unique userID from header
-  const userId = req.userId;
-  console.log(userId);
+  // Get the unique userinfo from header
+  const user = req.user;
+  console.log(user);
 
   const { name, price, description, category, stock } = req.body;
 
@@ -44,9 +44,9 @@ const addProduct = async (req, res) => {
 };
 
 const purchaseProduct = async (res, req) => {
-  const userId = req.userId;
+  const user = req.user;
 
-  if (userId) {
+  if (user) {
     try {
       const productId = req.params.id;
       const product = await Product.findById(productId);
@@ -73,4 +73,27 @@ const purchaseProduct = async (res, req) => {
   }
 };
 
-module.exports = { getAllProducts, addProduct, purchaseProduct };
+const deleteProduct = async (req, res) => {
+  const user = req.user;
+
+  if (user) {
+    try {
+      const productId =  req.body.id || req.params.id;
+      const product = await Product.findById(productId);
+
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      const oldProduct = await product.deleteOne({_id: productId});
+
+      res.json({ message: `Product ${oldProduct} deleted successfully` });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  } else {
+    res.send.json("You must be logged in to perform this action.");
+  }
+}
+
+module.exports = { getAllProducts, addProduct, purchaseProduct, deleteProduct };
