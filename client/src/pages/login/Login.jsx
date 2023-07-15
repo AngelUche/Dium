@@ -1,16 +1,14 @@
 import { useRef, useState, useEffect } from "react";
-// import useAuth from "../../hooks/useAuth";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import axios from "../../api/axios";
-const LOGIN_URL = "/auth";
+const LOGIN_URL = "/login";
 
 export const Login = () => {
-  // const { setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   const userRef = useRef();
   const errRef = useRef();
@@ -33,20 +31,21 @@ export const Login = () => {
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ username: user, password: pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
+      // console.log(JSON.stringify(response?.data));
+
       const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
+      // console.log(accessToken);
+      setAuth({ user, pwd, accessToken });
+      console.log(setAuth);
       setUser("");
       setPwd("");
-      navigate(from, { replace: true });
+      navigate("/product");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -67,15 +66,13 @@ export const Login = () => {
         <p
           ref={errRef}
           className={errMsg ? "errmsg" : "offscreen"}
-          aria-live="assertive"
-        >
+          aria-live="assertive">
           {errMsg}
         </p>
         <h1>Sign In</h1>
         <form
           className="flex flex-col justify-evenly flex-grow pb-4"
-          onSubmit={handleSubmit}
-        >
+          onSubmit={handleSubmit}>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
