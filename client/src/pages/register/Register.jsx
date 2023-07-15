@@ -1,82 +1,243 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import {
+  faCheck,
+  faTimes,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "../../api/axios";
 import { NavLink } from "react-router-dom";
-import register from "../../assets/Images/register.jpg";
+
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const REGISTER_URL = "/register";
 
 export const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState({
-    value: "",
-    isTouched: false,
-  });
+  const userRef = useRef();
+  const errRef = useRef();
 
-  const handleSubmit = (e) => {
+  const [user, setUser] = useState("");
+  const [validName, setValidName] = useState(false);
+  const [userFocus, setUserFocus] = useState(false);
+
+  const [pwd, setPwd] = useState("");
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
+
+  const [matchPwd, setMatchPwd] = useState("");
+  const [validMatch, setValidMatch] = useState(false);
+  const [matchFocus, setMatchFocus] = useState(false);
+
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setValidName(USER_REGEX.test(user));
+  }, [user]);
+
+  useEffect(() => {
+    setValidPwd(PWD_REGEX.test(pwd));
+    setValidMatch(pwd === matchPwd);
+  }, [pwd, matchPwd]);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [user, pwd, matchPwd]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // alert("Account created!");
+    // if button enabled with JS hack
+    const v1 = USER_REGEX.test(user);
+    const v2 = PWD_REGEX.test(pwd);
+    if (!v1 || !v2) {
+      setErrMsg("Invalid Entry");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        REGISTER_URL,
+        JSON.stringify({ user, pwd }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      // TODO: remove console.logs before deployment
+      console.log(JSON.stringify(response?.data));
+      //console.log(JSON.stringify(response))
+      setSuccess(true);
+      //clear state and controlled inputs
+      setUser("");
+      setPwd("");
+      setMatchPwd("");
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 409) {
+        setErrMsg("Username Taken");
+      } else {
+        setErrMsg("Registration Failed");
+      }
+      errRef.current.focus();
+    }
   };
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
-        <div className="hidden sm:block">
-          <img className="w-full h-full object-cover" src={register} alt="" />
-        </div>
-
-        <div className="bg-[#9b999f] flex flex-col justify-center">
-          <h2 className="text-2xl dark:text-white font-bold text-center mb-1">
-            Dium
-          </h2>
-          <p className="text-xl dark:text-white font-bold text-center mb-7">
-            Next Level Shopping{" "}
+      {success ? (
+        <section>
+          <h1>Success!</h1>
+          <p>
+            <a href="#">Sign In</a>
           </p>
-
-          <form
-            onSubmit={handleSubmit}
-            className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8"
-          >
-            <div className="flex flex-col text-gray-400 py-2">
-              <label>Email</label>
+        </section>
+      ) : (
+        <section className="w-full flex justify-center items-center h-screen">
+          <div className="w-1/2 min-h-400 flex flex-col justify-start p-4 bg-black bg-opacity-40">
+            <p
+              ref={errRef}
+              className={errMsg ? "errmsg" : "offscreen"}
+              aria-live="assertive"
+            >
+              {errMsg}
+            </p>
+            <h1>Register</h1>
+            <form
+              className="flex flex-col justify-evenly flex-grow pb-4"
+              onSubmit={handleSubmit}
+            >
+              <label htmlFor="username">
+                Username:
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validName ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validName || !user ? "hide" : "invalid"}
+                />
+              </label>
               <input
-                className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
                 type="text"
+                id="username"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setUser(e.target.value)}
+                value={user}
                 required
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                aria-invalid={validName ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
               />
-            </div>
-
-            <div className="flex flex-col text-gray-400 py-2">
-              <label>Password</label>
-              <input
-                className="p-2 rounded-lg bg-gray-700 mt-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-                type="password"
-                required
-                onChange={(e) => {
-                  setPassword({ ...password, value: e.target.value });
-                }}
-                onBlur={() => {
-                  setPassword({ ...password, isTouched: true });
-                }}
-              />
-            </div>
-            <div className="flex justify-between text-gray-400 py-2">
-              <p className="flex items-center">
-                <input className="mr-2" type="checkbox" /> Remember Me
-              </p>
-              <p>Forgot Password</p>
-            </div>
-            <NavLink to="/product">
-              <button
-                type="submit"
-                className="w-full my-7 py-2 bg-[#311180] shadow-lg shadow-[#311180]-500/50 hover:shadow-[#311180]-500/40 text-white font-semibold rounded-lg"
+              <p
+                id="uidnote"
+                className={
+                  userFocus && user && !validName ? "instructions" : "offscreen"
+                }
               >
-                Create an account
+                <FontAwesomeIcon icon={faInfoCircle} />
+                4 to 24 characters.
+                <br />
+                Must begin with a letter.
+                <br />
+                Letters, numbers, underscores, hyphens allowed.
+              </p>
+
+              <label htmlFor="password">
+                Password:
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validPwd ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validPwd || !pwd ? "hide" : "invalid"}
+                />
+              </label>
+              <input
+                type="password"
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+                required
+                aria-invalid={validPwd ? "false" : "true"}
+                aria-describedby="pwdnote"
+                onFocus={() => setPwdFocus(true)}
+                onBlur={() => setPwdFocus(false)}
+              />
+              <p
+                id="pwdnote"
+                className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+              >
+                <FontAwesomeIcon icon={faInfoCircle} />
+                8 to 24 characters.
+                <br />
+                Must include uppercase and lowercase letters, a number and a
+                special character.
+                <br />
+                Allowed special characters:{" "}
+                <span aria-label="exclamation mark">!</span>{" "}
+                <span aria-label="at symbol">@</span>{" "}
+                <span aria-label="hashtag">#</span>{" "}
+                <span aria-label="dollar sign">$</span>{" "}
+                <span aria-label="percent">%</span>
+              </p>
+
+              <label htmlFor="confirm_pwd">
+                Confirm Password:
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className={validMatch && matchPwd ? "valid" : "hide"}
+                />
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  className={validMatch || !matchPwd ? "hide" : "invalid"}
+                />
+              </label>
+              <input
+                type="password"
+                id="confirm_pwd"
+                onChange={(e) => setMatchPwd(e.target.value)}
+                value={matchPwd}
+                required
+                aria-invalid={validMatch ? "false" : "true"}
+                aria-describedby="confirmnote"
+                onFocus={() => setMatchFocus(true)}
+                onBlur={() => setMatchFocus(false)}
+              />
+              <p
+                id="confirmnote"
+                className={
+                  matchFocus && !validMatch ? "instructions" : "offscreen"
+                }
+              >
+                <FontAwesomeIcon icon={faInfoCircle} />
+                Must match the first password input field.
+              </p>
+
+              {/* <NavLink to="/product"> */}
+              <button
+                disabled={!validName || !validPwd || !validMatch ? true : false}
+              >
+                Register
               </button>
-            </NavLink>
-          </form>
-        </div>
-      </div>
+              {/* </NavLink> */}
+            </form>
+            <p>
+              Already registered?
+              <br />
+              <span className="line">
+                <NavLink to="/login">Login</NavLink>
+              </span>
+            </p>
+          </div>
+        </section>
+      )}
     </>
   );
 };
