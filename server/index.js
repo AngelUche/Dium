@@ -35,8 +35,10 @@ app.use("/login", require("./routes/login"));
 app.use("/refresh", require("./routes/refresh"));
 app.use("/logout", require("./routes/logout"));
 app.use(verifyJWT);
+app.use("/cart", require("./routes/carts"));
+// app.use("/category", require("./routes/category"));
 app.use("/products", require("./routes/products"));
-app.use("/orders", require("./routes/orders"))
+app.use("/orders", require("./routes/orders"));
 
 mongoose.connection.once("open", () => {
   console.log("Connected to MongoDB.");

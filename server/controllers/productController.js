@@ -1,5 +1,6 @@
 const Product = require("../models/Product");
 const User = require("../models/User");
+const Category = require("../models/Category");
 const path = require("path");
 
 const getAllProducts = async (req, res) => {
@@ -20,6 +21,13 @@ const addProduct = async (req, res) => {
 
   const { name, price, description, category, stock } = req.body;
 
+  const foundCategory = await Category.find({ name: category });
+
+  let newCategory;
+  if (!foundCategory) {
+    Category = await Category.create({ name: category });
+  }
+
   const imagePath = req.file?.path;
 
   /* Normalize the image path using path module. Without this, Windows will make use of
@@ -30,7 +38,7 @@ const addProduct = async (req, res) => {
     const postedProduct = await Product.create({
       name,
       description,
-      category,
+      category: newCategory ? newCategory._id : foundCategory._id,
       image: normalizedImagePath,
       stock,
       price,
@@ -78,14 +86,14 @@ const deleteProduct = async (req, res) => {
 
   if (user) {
     try {
-      const productId =  req.body.id || req.params.id;
+      const productId = req.body.id || req.params.id;
       const product = await Product.findById(productId);
 
       if (!product) {
         return res.status(404).json({ error: "Product not found" });
       }
 
-      const oldProduct = await product.deleteOne({_id: productId});
+      const oldProduct = await product.deleteOne({ _id: productId });
 
       res.json({ message: `Product ${oldProduct} deleted successfully` });
     } catch (error) {
@@ -94,6 +102,6 @@ const deleteProduct = async (req, res) => {
   } else {
     res.send.json("You must be logged in to perform this action.");
   }
-}
+};
 
 module.exports = { getAllProducts, addProduct, purchaseProduct, deleteProduct };

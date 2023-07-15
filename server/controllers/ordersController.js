@@ -32,11 +32,18 @@ const addOrder = async (req, res) => {
     const cart = await Cart.findById(user.id).populate('products');
     const products = cart.product;
 
+    // calculating the total price of products 
+    // in the cart
+    let totalPrice = 0;
+    products.forEach(product => {
+        totalPrice += product.price;
+    })
+
     try {
         result = new Orders({
             user: user.id,
             products: products.map(product => product._id),
-            totalPrice:10,//total price of all products in cart pls write the code
+            'totalPrice':totalPrice,//total price of all products in cart pls write the code
         })
     } catch(err){
         console.log(err);
