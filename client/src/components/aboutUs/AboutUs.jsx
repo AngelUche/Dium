@@ -5,7 +5,7 @@ export const AboutUs = () => {
   const navigateTo = useNavigate()
   return (
     <div className="">
-      <div className="h-[500px] w-[90%] mx-auto relative">
+      <div className="h-[500px] w-[90%]  mx-auto relative">
 
         <img src={Hero} alt="" className="w-full h-full" />
         
@@ -34,8 +34,8 @@ As we celebrate our journey, we express our heartfelt gratitude to each and ever
 Thank you for being a part of our story and for choosing DIUM as your ultimate destination for fashion and self-expression</p>
       
       </section>
-      <h3 onClick={() => navigateTo('/shop')}
-        className="text-center bg-[#118f63] text-[white] fon  font-extrabold font w-max cursor-pointer mx-auto font-[Liberation Mono] px-3 mt-4 mb-1"> View our products</h3>
+      <h3 onClick={() => navigateTo('/product')}
+        className="text-center bg-[#118f63] text-[white]  font-extrabold font w-max cursor-pointer mx-auto font-[Liberation Mono] px-3 mt-4 mb-8"> View our products</h3>
       <Footer/>
     </div>
     // font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
