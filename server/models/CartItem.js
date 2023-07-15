@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const CartSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: "User",
+    required: true,
   },
   products: {
     type: mongoose.Schema.Types.ObjectId,
@@ -24,7 +24,6 @@ const CartSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  confirmed: { Boolean },
 });
 
 module.exports = mongoose.model("Cart", CartSchema);
