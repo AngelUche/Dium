@@ -3,6 +3,9 @@ import { PageLayOut } from "./layouts/PageLayOut";
 import HomePage from "./pages/homePage/HomePage";
 import { MainProdut } from "./components/products/MainProdut";
 import { AboutUs } from "./components/aboutUs/AboutUs";
+import { Login } from "./pages/login/Login";
+import { Register } from "./pages/register/Register";
+
 export default function App() {
   return (
     <>
@@ -10,11 +13,13 @@ export default function App() {
         <Routes>
           <Route path="/" element={<PageLayOut />}>
             <Route index path="/home" element={<HomePage />} />
-          <Route path="/aboutus" element={<AboutUs />}/>
-          <Route path="/shop" element={<MainProdut />}/>
-            
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/shop" element={<MainProdut />} />
           </Route>
-      </Routes>
+
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
       </BrowserRouter>
     </>
   );
