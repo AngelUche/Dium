@@ -50,9 +50,15 @@ const resetPassword = async (req, res)=>{
     if (!otp){
         return res.status(500).json('Error sending OTP, try again later');
     }
+    const timestamp = Date.now();
+    user.otp = otp;
+    user.otp_date = timestamp;
+    user.save();
+
     res.status(226).json({
         message:'OTP sent successfully',
-        otp: otp,
+        otp: user.otp,
+        otp_expr: user.otp_date,
     });
 }
 

@@ -34,6 +34,7 @@ app.use("/register", require("./routes/register"));
 app.use("/login", require("./routes/login"));
 app.use("/refresh", require("./routes/refresh"));
 app.use("/reset", require("./routes/resetPass"));
+app.use("/newpass", require("./routes/passwordReset"));
 app.use("/logout", require("./routes/logout"));
 app.use(verifyJWT);
 app.use("/cart", require("./routes/carts"));

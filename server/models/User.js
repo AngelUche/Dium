@@ -22,6 +22,12 @@ const UserSchema = new Schema({
       ref: "Orders",
     },
   ],
+  otp:{
+    type: Number,
+  },
+  otp_date:{
+    type:Date,
+  },
   suspended: Boolean,
   refreshToken: String,
 });
