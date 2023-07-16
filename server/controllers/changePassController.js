@@ -16,7 +16,7 @@ const changePassword = async (req, res)=>{
         otp:otp,
         otp_date: {$gt: fiveMinsAgo}, //expires after 5mins
     }).exec();
-    if (!user){
+    if (!user || !password){
         return res.status(400).json({message:"invalid credentials"})
     }
 

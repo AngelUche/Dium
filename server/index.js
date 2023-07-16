@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use("/register", require("./routes/register"));
 app.use("/login", require("./routes/login"));
 app.use("/refresh", require("./routes/refresh"));
-app.use("/reset", require("./routes/resetPass"));
+app.use("/reset", require("./routes/forgotenpass"));
 app.use("/newpass", require("./routes/passwordReset"));
 app.use("/logout", require("./routes/logout"));
 app.use(verifyJWT);

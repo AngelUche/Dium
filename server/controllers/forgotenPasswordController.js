@@ -40,7 +40,7 @@ const sendOTP = (username, email) => {
     return (otp);
 };
 
-const resetPassword = async (req, res)=>{
+const forgotPass = async (req, res)=>{
     const {username, email } = req.body;
     const user = await User.findOne({username}).exec();
     if (!user){
@@ -62,4 +62,4 @@ const resetPassword = async (req, res)=>{
     });
 }
 
-module.exports = { resetPassword };
+module.exports = { forgotPass };
