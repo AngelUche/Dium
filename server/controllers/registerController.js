@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 exports.registerUser = async (req, res) => {
   const { username, password } = req.body;
-  if (!username && !password)
+  if (!username || !password)
     return res.status(400).json({ message: "Please fill all entries" });
 
   // Check if user with given email already exists
