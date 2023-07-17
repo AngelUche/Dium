@@ -4,9 +4,10 @@ import HomePage from "./pages/homePage/HomePage";
 import { AboutUs } from "./components/aboutUs/AboutUs";
 import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
+import { Output } from "./Output/Output";
 // import { Product } from "./Products/Products";
 // import { AuthProvider } from "./context/AuthProvider";
-import Output from "./Ouput/Output";
+
 
 export default function App() {
   return (

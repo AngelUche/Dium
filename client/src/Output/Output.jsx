@@ -1,24 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Navigation from "../components/Navigation/Nav";
 import Products from "../components/Products/Products";
-import products from "../db/data";
+// import products from "../db/data";
 import Recommended from "../components/Recommended/Recommended";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Card from "../components/Shared/Card";
 import "./Output.css";
 
-function App() {
+export const Output = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   // ----------- Input Filter -----------
   const [query, setQuery] = useState("");
 
+  // // ----------- API -----------
+  const [apiData, setApiData] = useState([]);
+
+  useEffect(() => {
+    fetchApiData();
+  }, []);
+
+  const fetchApiData = async () => {
+    try {
+      const response = await fetch("http://localhost:6000/products");
+      const data = await response.json();
+      console.log(data);
+      setApiData(data);
+    } catch (error) {
+      console.error("Error fetching data from the API:", error);
+    }
+  };
+
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
 
-  const filteredItems = products.filter(
+  const filteredItems = apiData.filter(
     (product) => product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
   );
 
@@ -33,7 +51,9 @@ function App() {
   };
 
   function filteredData(products, selected, query) {
-    let filteredProducts = products;
+    // let filteredProducts = products;
+    // Use apiData instead of products
+    let filteredProducts = apiData;
 
     // Filtering Input Items
     if (query) {
@@ -67,7 +87,7 @@ function App() {
     );
   }
 
-  const result = filteredData(products, selectedCategory, query);
+  const result = filteredData(apiData, selectedCategory, query);
 
   return (
     <>
@@ -77,6 +97,4 @@ function App() {
       <Products result={result} />
     </>
   );
-}
-
-export default App;
+};
