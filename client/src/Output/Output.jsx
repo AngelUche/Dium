@@ -23,7 +23,7 @@ export const Output = () => {
 
   const fetchApiData = async () => {
     try {
-      const response = await fetch("http://localhost:6000/products");
+      const response = await fetch("http://localhost:6500/products");
       const data = await response.json();
       console.log(data);
       setApiData(data);
