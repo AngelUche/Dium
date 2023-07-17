@@ -60,7 +60,7 @@ export const Register = () => {
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ username: user, password: pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -101,15 +101,13 @@ export const Register = () => {
             <p
               ref={errRef}
               className={errMsg ? "errmsg" : "offscreen"}
-              aria-live="assertive"
-            >
+              aria-live="assertive">
               {errMsg}
             </p>
             <h1>Register</h1>
             <form
               className="flex flex-col justify-evenly flex-grow pb-4"
-              onSubmit={handleSubmit}
-            >
+              onSubmit={handleSubmit}>
               <label htmlFor="username">
                 Username:
                 <FontAwesomeIcon
@@ -138,8 +136,7 @@ export const Register = () => {
                 id="uidnote"
                 className={
                   userFocus && user && !validName ? "instructions" : "offscreen"
-                }
-              >
+                }>
                 <FontAwesomeIcon icon={faInfoCircle} />
                 4 to 24 characters.
                 <br />
@@ -172,8 +169,9 @@ export const Register = () => {
               />
               <p
                 id="pwdnote"
-                className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-              >
+                className={
+                  pwdFocus && !validPwd ? "instructions" : "offscreen"
+                }>
                 <FontAwesomeIcon icon={faInfoCircle} />
                 8 to 24 characters.
                 <br />
@@ -214,16 +212,16 @@ export const Register = () => {
                 id="confirmnote"
                 className={
                   matchFocus && !validMatch ? "instructions" : "offscreen"
-                }
-              >
+                }>
                 <FontAwesomeIcon icon={faInfoCircle} />
                 Must match the first password input field.
               </p>
 
               {/* <NavLink to="/product"> */}
               <button
-                disabled={!validName || !validPwd || !validMatch ? true : false}
-              >
+                disabled={
+                  !validName || !validPwd || !validMatch ? true : false
+                }>
                 Register
               </button>
               {/* </NavLink> */}
