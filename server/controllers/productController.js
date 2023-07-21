@@ -5,7 +5,7 @@ const path = require("path");
 
 const getAllProducts = async (req, res) => {
   try {
-    const allProducts = await Product.find({});
+    const allProducts = await Product.find();
     console.log(allProducts);
     res.json(allProducts);
   } catch (error) {

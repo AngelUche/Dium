@@ -1,3 +1,5 @@
+![Alt text](<Screenshot 2023-07-21 075033.png>)
+![Alt text](<Screenshot 2023-07-21 073611.png>) ![Alt text](<Screenshot 2023-07-21 073951.png>) ![Alt text](<Screenshot 2023-07-21 074210.png>) ![Alt text](<Screenshot 2023-07-21 074417.png>) ![Alt text](<Screenshot 2023-07-21 074524.png>) ![Alt text](<Screenshot 2023-07-21 074601.png>) ![Alt text](<Screenshot 2023-07-21 074901.png>) ![Alt text](<Screenshot 2023-07-21 075004.png>) ![Alt text](<Screenshot 2023-07-21 073338.png>) ![Alt text](<Screenshot 2023-07-21 073523.png>)
 # About Dium
 
 
@@ -13,8 +15,5 @@ When you choose Dium, you become a part of our family. We are committed to creat
 
 Your success is our success. We are genuinely invested in your satisfaction and will go above and beyond to ensure that you have a positive experience working with and using our products. We are dedicated to your success, and we celebrate your achievements as if they were our own.
 
-Thank you for being a part of our community and choosing Dium. We are honored to have you with us, and we look forward to serving you and providing you with the support you deserve.
+Thank you for being a part of our community and choosing Dium. We are honored to have you with us, and we look forward to serving you and providing you with the support you deserve
 
-Sincerely,
-
-David for the  Team
