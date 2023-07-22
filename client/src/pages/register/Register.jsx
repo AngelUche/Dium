@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -15,6 +15,8 @@ const REGISTER_URL = "/register";
 export const Register = () => {
   const userRef = useRef();
   const errRef = useRef();
+
+  const navigate = useNavigate();
 
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
@@ -60,7 +62,7 @@ export const Register = () => {
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ username: user, password: pwd }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -74,6 +76,7 @@ export const Register = () => {
       setUser("");
       setPwd("");
       setMatchPwd("");
+      navigate("/login");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -90,7 +93,7 @@ export const Register = () => {
     <>
       {success ? (
         <section>
-          <h1>Success!</h1>
+          <h1>Successss!</h1>
           <p>
             <a href="#">Sign In</a>
           </p>
@@ -220,7 +223,7 @@ export const Register = () => {
                 Must match the first password input field.
               </p>
 
-              {/* <NavLink to="/product"> */}
+              {/* <NavLink to="/login"> */}
               <button
                 disabled={!validName || !validPwd || !validMatch ? true : false}
               >

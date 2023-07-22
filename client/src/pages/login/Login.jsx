@@ -40,7 +40,12 @@ export const Login = () => {
       // console.log(JSON.stringify(response?.data));
 
       const accessToken = response?.data?.accessToken;
-      // console.log(accessToken);
+      console.log("AccessToken2:", accessToken);
+
+      // Save the accessToken to local storage
+      localStorage.setItem("accessToken", accessToken);
+      console.log(localStorage);
+
       setAuth({ user, pwd, accessToken });
       console.log(setAuth);
       setUser("");
@@ -66,13 +71,15 @@ export const Login = () => {
         <p
           ref={errRef}
           className={errMsg ? "errmsg" : "offscreen"}
-          aria-live="assertive">
+          aria-live="assertive"
+        >
           {errMsg}
         </p>
         <h1>Sign In</h1>
         <form
           className="flex flex-col justify-evenly flex-grow pb-4"
-          onSubmit={handleSubmit}>
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -100,7 +107,10 @@ export const Login = () => {
           Need an Account?
           <br />
           <span className="line">
-            <NavLink to="/register">Sign Up</NavLink>
+            <NavLink to="/register">Register</NavLink>
+          </span>
+          <span className="line px-5">
+            <NavLink to="/logout">Log Out</NavLink>
           </span>
         </p>
       </div>
