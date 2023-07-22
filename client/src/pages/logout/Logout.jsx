@@ -19,7 +19,10 @@ const Logout = () => {
 
       if (response.status === 200) {
         localStorage.removeItem("accessToken");
-        navigate("/home");
+        // Introduce a delay of 2 seconds before navigating to /home
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
       } else {
         console.error("Logout Failed");
         navigate("/login");
