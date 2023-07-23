@@ -1,5 +1,39 @@
+#Routes
+
+<h3>Registration R oute</h3>:Here the user account is created the route receives username and a password then creates a user with these details
+
 ![Alt text](<Screenshot 2023-07-21 075033.png>)
-![Alt text](<Screenshot 2023-07-21 073611.png>) ![Alt text](<Screenshot 2023-07-21 073951.png>) ![Alt text](<Screenshot 2023-07-21 074210.png>) ![Alt text](<Screenshot 2023-07-21 074417.png>) ![Alt text](<Screenshot 2023-07-21 074524.png>) ![Alt text](<Screenshot 2023-07-21 074601.png>) ![Alt text](<Screenshot 2023-07-21 074901.png>) ![Alt text](<Screenshot 2023-07-21 075004.png>) ![Alt text](<Screenshot 2023-07-21 073338.png>) ![Alt text](<Screenshot 2023-07-21 073523.png>)
+  ![Alt text](<Screenshot 2023-07-21 075004.png>) 
+
+<h3>Product Route</h3>: This is a get route it sends the all products when fetched.
+
+![Alt text](<Screenshot 2023-07-21 073611.png>)   ![Alt text](<Screenshot 2023-07-21 073523.png>)
+
+
+<h3>New Password Route</h3>: On this route you send the username the otp recieved via email and the new password to set for the user and a new password is created which the user can login with
+and also invalidates the otp ensuring it can only be used once.
+
+![Alt text](<Screenshot 2023-07-21 073951.png>) 
+![Alt text](<Screenshot 2023-07-21 074524.png>)
+ ![Alt text](<Screenshot 2023-07-21 074601.png>)
+
+<br>
+
+<h3>Reset route</h3>: This takes the username and email and sends an otp to email, this otp has an expiration time making sure it can not be used after said time .
+
+![Alt text](<Screenshot 2023-07-21 074210.png>) 
+![Alt text](<Screenshot 2023-07-21 074417.png>) 
+
+<h3>Get Orders</h3>:This returns a list of all orders.
+
+ ![Alt text](<Screenshot 2023-07-21 074901.png>)
+ 
+
+
+  <h3>Login Route</h3>:This takes a username and password and creates an access token for this user to enable the user gain personalized experience and access to protected routes.
+
+  ![Alt text](<Screenshot 2023-07-21 073338.png>) 
+  
 # About Dium
 
 
