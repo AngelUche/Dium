@@ -30,8 +30,8 @@ const Card = ({ name, price, image, stock, favorite }) => {
         </div>
       </div>
 
-      <NavLink to="#" onClick={() => setModalOpen(true)}>
-        <div className="bg-gray-500 p-4 mt-2">
+      <NavLink onClick={() => setModalOpen(true)}>
+        <div className="bg-gray-500 p-4 mt-2 hover:bg-gray-600">
           <h4 className="text-xl text-center font-semibold text-white">View</h4>
         </div>
       </NavLink>
