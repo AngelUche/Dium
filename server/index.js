@@ -9,6 +9,7 @@ const credentials = require("./middleware/credentials");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 const verifyJWT = require("./middleware/verifyJWT");
+const jsonErr = require("./middleware/json_error_handler");
 const PORT = process.env.PORT || 3500;
 
 connectDB();
@@ -25,6 +26,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // built-in middleware for json
 app.use(express.json());
+// middleware to ensure server dont crash cause of json syntax error
+app.use(jsonErr);
+
 
 //middleware for cookies
 app.use(cookieParser());
