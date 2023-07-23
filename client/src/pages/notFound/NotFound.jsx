@@ -13,7 +13,7 @@ const NotFoundPage = () => {
           to="/home"
           className="mt-4 inline-block bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-300"
         >
-          Go Back to Homepage
+          Go Back to our Homepage
         </NavLink>
       </div>
     </div>
