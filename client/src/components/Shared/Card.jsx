@@ -1,6 +1,7 @@
 import { BsFillBagFill } from "react-icons/bs";
+// import { NavLink } from "react-router-dom";
 
-const Card = ({ name, price, image, stock, favorite }) => {
+const Card = ({ name, price, image, stock, favorite, addToCart }) => {
   return (
     <>
       <section className="card">
@@ -9,14 +10,16 @@ const Card = ({ name, price, image, stock, favorite }) => {
           <h3 className="card-title">{name}</h3>
 
           <section className="card-reviews">
-            {stock} in Stock
-            <span className="total-reviews">fav: {favorite}</span>
+            {stock} items in Stock
+            {/* <span className="total-reviews">Favorite: {favorite}</span> */}
           </section>
 
           <section className="card-price">
-            <div className="price">Price: ${price}</div>
-            <div className="bag">
-              <BsFillBagFill className="bag-icon" />
+            <div className="price">Last Price: ${price}</div>
+            <div>
+              <button onClick={() => addToCart({ name, price })}>
+                <BsFillBagFill className="bag-icon" />
+              </button>
             </div>
           </section>
         </div>

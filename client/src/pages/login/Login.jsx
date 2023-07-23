@@ -37,10 +37,8 @@ export const Login = () => {
           withCredentials: true,
         }
       );
-      // console.log(JSON.stringify(response?.data));
 
       const accessToken = response?.data?.accessToken;
-      console.log("AccessToken2:", accessToken);
 
       // Save the accessToken to local storage
       localStorage.setItem("accessToken", accessToken);

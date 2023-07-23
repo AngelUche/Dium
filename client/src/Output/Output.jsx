@@ -6,18 +6,16 @@ import "./Output.css";
 // import useAuth from "../hooks/useAuth";
 
 export const Output = () => {
-  // // ----------- API -----------
   const [products, setProducts] = useState([]);
 
   const storedAccessToken = localStorage.getItem("accessToken");
-  // console.log("Stored AccessToken5:", storedAccessToken);
+  // console.log("Stored AccessToken:", storedAccessToken);
 
   // Get the stored token from the hook
   // const { accessToken } = useAuth();
-  // console.log("AccessToken1:", accessToken);
+  // console.log("AccessToken:", accessToken);
 
   useEffect(() => {
-    // console.log("AccessToken:", accessToken);
     if (storedAccessToken) {
       fetchApiData();
     }
@@ -31,7 +29,7 @@ export const Output = () => {
         },
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       setProducts(data);
     } catch (error) {
@@ -71,7 +69,7 @@ export const Output = () => {
     <>
       <div>
         <NavLink to="/logout">
-          <button className="bg-gray-300 hover:bg-gray-400 focus:bg-gray-500 text-gray-800">
+          <button className="bg-gray-300 hover:bg-gray-400 focus:bg-gray-500 text-gray-800 ">
             Logout
           </button>
         </NavLink>

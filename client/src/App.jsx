@@ -6,6 +6,7 @@ import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
 import { Output } from "./Output/Output";
 import Logout from "./pages/logout/Logout";
+import NotFoundPage from './pages/notFound/NotFound';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/product" element={<Output />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFoundPage />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
