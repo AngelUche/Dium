@@ -1,6 +1,6 @@
 code snippets for each route, including the error handling information:
 
-# My Awesome Application API
+# Dium API
 
 ## Registration Route
 
@@ -47,10 +47,9 @@ GET /products
 “products”: […]
 }
 
-- 404 Not Found: No products available.
-
+- if error occures
 {
-“error”: “No products found”
+“error”: “msg”
 }
 
 ## New Password Route
@@ -63,24 +62,24 @@ POST /new-password
 
 {
 “username”: “john_doe”,
-“otp”: “123456”,
-“new_password”: “newsecretpassword”
+“otp”: 123456, --- must be a Number
+“password”: “newsecretpassword”
 }
 
 ### Response
 
 - 200 OK: Password successfully updated.
 
-- 400 Bad Request: Missing or empty username/OTP/new_password fields.
+- 400 Bad Request: Missing or empty username/OTP/password fields.
 
 {
-“error”: “Missing username, OTP, or new password”
+“error”: “Missing username, OTP, or password”
 }
 
 - 401 Unauthorized: Invalid or expired OTP.
 
 {
-“error”: “Invalid or expired OTP”
+“error”: “invalid credentials”
 }
 
 ## Reset Route
