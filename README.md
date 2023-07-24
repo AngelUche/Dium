@@ -1,6 +1,168 @@
-#Routes
+code snippets for each route, including the error handling information:
 
-<h3>Registration R oute</h3>:Here the user account is created the route receives username and a password then creates a user with these details
+# My Awesome Application API
+
+## Registration Route
+
+Creates a user account with the provided username and password.
+
+### Request
+
+POST /register
+
+{
+“username”: “john_doe”,
+“password”: “secretpassword”
+}
+
+### Response
+
+- 201 Created: User account successfully created.
+
+- 400 Bad Request: Missing or empty username/password fields.
+
+{
+“error”: “Missing username or password”
+}
+
+- 409 Conflict: Username already taken.
+
+{
+“error”: “Username already taken”
+}
+
+## Product Route
+
+Retrieves all products available.
+
+### Request
+
+GET /products
+
+### Response
+
+- 200 OK: Successfully fetched products.
+
+{
+“products”: […]
+}
+
+- 404 Not Found: No products available.
+
+{
+“error”: “No products found”
+}
+
+## New Password Route
+
+Updates the user's password with the provided OTP.
+
+### Request
+
+POST /new-password
+
+{
+“username”: “john_doe”,
+“otp”: “123456”,
+“new_password”: “newsecretpassword”
+}
+
+### Response
+
+- 200 OK: Password successfully updated.
+
+- 400 Bad Request: Missing or empty username/OTP/new_password fields.
+
+{
+“error”: “Missing username, OTP, or new password”
+}
+
+- 401 Unauthorized: Invalid or expired OTP.
+
+{
+“error”: “Invalid or expired OTP”
+}
+
+## Reset Route
+
+Sends an OTP to the user's email for password reset.
+
+### Request
+
+POST /reset
+
+{
+“username”: “john_doe”,
+“email”: “john.doe@example.com”
+}
+
+### Response
+
+- 200 OK: OTP sent successfully.
+
+- 400 Bad Request: Missing or empty username/email fields.
+
+{
+“error”: “Missing username or email”
+}
+
+## Get Orders
+
+Retrieves a list of all orders.
+
+### Request
+
+GET /orders
+
+### Response
+
+- 200 OK: Successfully fetched orders.
+
+{
+“orders”: […]
+}
+
+- 404 Not Found: No orders found.
+
+{
+“error”: “No orders found”
+}
+
+## Login Route
+
+Creates an access token for the user to access protected routes.
+
+### Request
+
+POST /login
+
+{
+“username”: “john_doe”,
+“password”: “secretpassword”
+}
+
+### Response
+
+- 200 OK: Login successful.
+
+{
+“access_token”: “your_access_token_here”
+}
+
+- 400 Bad Request: Missing or empty username/password fields.
+
+{
+“error”: “Missing username or password”
+}
+
+- 401 Unauthorized: Invalid username/password combination.
+
+{
+“error”: “Invalid username/password”
+}
+
+#Routes and Images
+<h3>Registration Route</h3>:Here the user account is created the route receives username and a password then creates a user with these details
 
 ![Alt text](<Screenshot 2023-07-21 075033.png>)
   ![Alt text](<Screenshot 2023-07-21 075004.png>) 
